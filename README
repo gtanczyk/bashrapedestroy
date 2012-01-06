@@ -1,1 +1,31 @@
-Bash, rape & destroy!
+= Bash, rape & destroy! =
+
+1. Kompilacja
+
+2. Uruchamianie
+
+Dla uproszczenia napisa³em lekki serwer WWW, który obs³uguje ca³oœæ tzn. podaje statyczne pliki i prowadzi komunikacjê z klientami.
+
+Aby uruchomiæ grê musisz podaæ:
+1. Adres IP, na którym na nas³uchwiaæ serwer
+2. Folder, w którym znajduj¹ siê pliki statyczne
+
+Gra bêdzie dostêpna pod adresem:
+http://adres_ip:port/
+
+Aby udostêpniæ rozgrywkê przez internet 
+
+3. Udostêpnianie rozgrywki przez internet
+
+Musisz umo¿liwiæ po³¹czenia przychodz¹ce w systemie pod portem, na którym uruchamiasz serwer gry. Dla poprawnego dzia³ania potrzebujesz ³¹cza o prêdkoœci wychodz¹cej co najmniej 128kb/s(1mbps).
+
+4. Apache HTTPd i mod_proxy
+
+Przed serwerem gry mo¿na postawiæ inny serwer. Serwer gry nale¿y skonfigurowaæ pod localhost(127.0.0.1) i dowolny nieu¿ywany lokalnie port. Nastêpnie w konfiguracji VirtualHost:
+
+RewriteEngine On  
+  RewriteRule "^/bashrape/(.*)" "http://localhost:1750/$1" [L,P]
+  
+ProxyPreserveHost On
+ProxyTimeout 60
+ProxyPassReverse /clubjitsu/ http://localhost:1750/  
